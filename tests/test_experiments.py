@@ -1,7 +1,5 @@
 """Smoke tests for experiment runners."""
 
-import pytest
-
 
 class TestExperimentOutputs:
     """Test suite for experiment output handling."""

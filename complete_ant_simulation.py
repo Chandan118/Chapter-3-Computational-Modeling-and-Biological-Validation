@@ -98,8 +98,8 @@ class CompleteAntSimulation:
 
         # Check Python dependencies
         try:
-            import matplotlib
-            import seaborn
+            import matplotlib  # noqa: F401
+            import seaborn  # noqa: F401
 
             print("✓ Visualization libraries (matplotlib, seaborn)")
             checks.append(True)
