@@ -55,6 +55,10 @@ class WorkingExperiment:
             print("  Initializing NetLogo (this may take 10-30 seconds)...")
             try:
                 self.netlogo = netlogo_utils.init_netlogo(gui=False, netlogo_home=self.netlogo_home)
+                if isinstance(self.netlogo, netlogo_utils.MockNetLogoLink):
+                    print("\n" + "!"*70)
+                    print("WARNING: Running in MOCK mode. No real NetLogo simulation will be run.")
+                    print("!"*70 + "\n")
                 print("  ✓ NetLogo initialized")
             except Exception as e:
                 print(f"  ✗ Failed to initialize NetLogo: {e}")
@@ -134,8 +138,8 @@ class WorkingExperiment:
 
                 # Collect data with error handling
                 try:
-                    ants_food = self.netlogo.report('count turtles with [food > 0]')
-                    chemical = self.netlogo.report('mean [chemical] of patches')
+                    ants_food = self.netlogo.report('count turtles with [has-food?]')
+                    chemical = self.netlogo.report('mean [pheromone] of patches')
 
                     data['ticks'].append(tick)
                     data['ants_with_food'].append(ants_food)
@@ -232,6 +236,10 @@ class WorkingExperiment:
             print("\nInitializing NetLogo...")
             try:
                 self.netlogo = netlogo_utils.init_netlogo(gui=False, netlogo_home=self.netlogo_home)
+                if isinstance(self.netlogo, netlogo_utils.MockNetLogoLink):
+                    print("\n" + "!"*70)
+                    print("WARNING: Running in MOCK mode. No real NetLogo simulation will be run.")
+                    print("!"*70 + "\n")
                 self.netlogo.load_model(self.model_path)
                 print("✓ Ready to run experiments\n")
             except Exception as e:

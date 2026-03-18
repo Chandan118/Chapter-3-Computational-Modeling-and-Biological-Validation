@@ -6,9 +6,10 @@ This module is intentionally lightweight and avoids side-effects.
 import os
 import shutil
 import glob
+from typing import Optional, List, Union, Any, Dict
 
 
-def find_netlogo_home(env_var='NETLOGO_HOME'):
+def find_netlogo_home(env_var: str = 'NETLOGO_HOME') -> Optional[str]:
     """Return a candidate NetLogo home path or None."""
     home = os.environ.get(env_var)
     if home and os.path.isdir(home):
@@ -27,12 +28,12 @@ def find_netlogo_home(env_var='NETLOGO_HOME'):
     return None
 
 
-def java_available():
+def java_available() -> bool:
     """Return True if `java` is available on PATH."""
     return shutil.which('java') is not None
 
 
-def find_netlogo_jar(netlogo_home):
+def find_netlogo_jar(netlogo_home: Optional[str]) -> Optional[str]:
     """Search for a NetLogo jar in the installation directory. Returns path or None."""
     if not netlogo_home:
         return None
@@ -40,6 +41,7 @@ def find_netlogo_jar(netlogo_home):
     patterns = [
         os.path.join(netlogo_home, 'app', '*.jar'),
         os.path.join(netlogo_home, 'lib', '*.jar'),
+        os.path.join(netlogo_home, 'lib', 'app', '*.jar'),
         os.path.join(netlogo_home, '*.jar'),
     ]
     for p in patterns:
@@ -54,7 +56,8 @@ def find_netlogo_jar(netlogo_home):
     return None
 
 
-def init_netlogo(gui=False, netlogo_home=None, netlogo_version=None):
+def init_netlogo(gui: bool = False, netlogo_home: Optional[str] = None, 
+                 netlogo_version: Optional[str] = None) -> Union['pynetlogo.NetLogoLink', 'MockNetLogoLink']:
     """Initialize and return a `pynetlogo.NetLogoLink` instance.
 
     Raises RuntimeError with a helpful message on failure.
@@ -94,7 +97,10 @@ def init_netlogo(gui=False, netlogo_home=None, netlogo_version=None):
 
     # Try to create the NetLogoLink; let exceptions bubble up but wrap them
     try:
-        kwargs = dict(gui=gui, netlogo_home=netlogo_home)
+        # Pass minimal supported kwargs to pynetlogo.NetLogoLink. Some
+        # versions of pyNetLogo do not accept a `netlogo_version` argument,
+        # so avoid passing it to maximize compatibility.
+        kwargs = {'gui': gui, 'netlogo_home': netlogo_home}
         if netlogo_version:
             kwargs['netlogo_version'] = netlogo_version
         nl = pynetlogo.NetLogoLink(**kwargs)
@@ -111,28 +117,48 @@ class MockNetLogoLink:
     deterministic-enough for running example scripts in CI or development
     without NetLogo installed.
     """
-    def __init__(self, gui=False, netlogo_home=None):
+    def __init__(self, gui: bool = False, netlogo_home: Optional[str] = None) -> None:
         import random
         self._rand = random.Random(0)
-        self.ticks = 0
-        self.turtles = 100
-        self.patches = 10000
-        self.model = None
+        self.ticks: int = 0
+        self.turtles: int = 100
+        self.patches: int = 10000
+        self.model: Optional[str] = None
+        
+        # Enhanced mock state
+        self.state: Dict[str, Any] = {
+            'carrying_food': int(self.turtles * 0.1),
+            'at_nest': int(self.turtles * 0.3),
+            'chemical': 0.5,
+            'food_patches': 50,
+            'pheromone': 0.3,
+        }
 
-    def load_model(self, model_path):
+    def load_model(self, model_path: str) -> None:
         self.model = model_path
         print(f"[MOCK] Loaded model: {model_path}")
 
-    def command(self, cmd):
+    def command(self, cmd: str) -> None:
         # Support 'setup', 'go', 'repeat N [go]', and simple set commands
         cmd = str(cmd).strip()
         if cmd.startswith('set '):
-            # ignore set commands in mock
+            # Parse set commands like: set diffusion-rate 50
+            try:
+                parts = cmd.split()
+                if len(parts) >= 3:
+                    var_name = parts[1]
+                    value = float(parts[2])
+                    self.state[var_name] = value
+            except Exception:
+                pass
             return
         if cmd == 'setup':
             self.ticks = 0
-            # reset turtles to default
             self.turtles = 100
+            self.state['carrying_food'] = int(self.turtles * 0.1)
+            self.state['at_nest'] = int(self.turtles * 0.3)
+            self.state['chemical'] = 0.5
+            self.state['food_patches'] = 50
             return
         if cmd.startswith('repeat') and 'go' in cmd:
             # No-op: advance ticks by the repeat count if parsable
@@ -141,39 +167,65 @@ class MockNetLogoLink:
                 parts = cmd.split()
                 n = int(parts[1])
                 self.ticks += n
+                # Simulate state changes
+                self._simulate_tick_changes(n)
             except Exception:
                 self.ticks += 1
             return
         if cmd == 'go':
             self.ticks += 1
+            self._simulate_tick_changes(1)
             return
 
-    def report(self, expr):
+    def _simulate_tick_changes(self, num_ticks: int) -> None:
+        """Simulate state changes over ticks for more realistic mock."""
+        for _ in range(num_ticks):
+            # Decay chemical over time
+            self.state['chemical'] *= 0.95
+            self.state['chemical'] += self._rand.random() * 0.05
+            
+            # Food patches decrease slightly
+            if self.state['food_patches'] > 10:
+                self.state['food_patches'] -= int(self._rand.random() * 2)
+            
+            # Carrying food varies
+            self.state['carrying_food'] = int(
+                self.turtles * (0.1 + self._rand.random() * 0.2)
+            )
+
+    def report(self, expr: str) -> Union[int, float]:
         e = str(expr).lower()
         if 'count turtles' in e:
+            if 'carrying-food' in e or 'carrying_food' in e:
+                return int(self.state['carrying_food'])
+            if 'at-nest' in e or 'at_nest' in e:
+                return int(self.state['at_nest'])
             return int(self.turtles)
         if 'count patches' in e:
+            if 'food' in e:
+                return int(self.state['food_patches'])
+            if 'pheromone' in e:
+                return int(self.patches * (self.state['pheromone'] / 10))
             return int(self.patches)
-        if 'count turtles with' in e:
-            # return a small fraction as mock
-            return int(self.turtles * 0.1)
-        if 'mean [chemical] of patches' in e or 'mean [chemical]' in e:
-            return float(self._rand.random())
+        if 'mean [chemical]' in e:
+            return float(self.state['chemical'])
+        if 'mean [pheromone]' in e:
+            return float(self.state['pheromone'])
         # default numeric fallback
         try:
             return float(0)
         except Exception:
             return 0
 
-    def repeat_report(self, reports, times):
+    def repeat_report(self, reports: List[str], times: int) -> List[Any]:
         # reports: list of report strings; return list of lists
-        out = []
+        out: List[Any] = []
         for t in range(times):
-            vals = []
+            vals: List[Any] = []
             for r in reports:
                 vals.append(self.report(r))
             out.append(vals if len(vals) > 1 else vals[0])
         return out
 
-    def kill_workspace(self):
+    def kill_workspace(self) -> None:
         print("[MOCK] NetLogo workspace closed")

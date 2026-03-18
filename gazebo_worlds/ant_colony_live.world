@@ -1,0 +1,1246 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="ant_colony_world">
+    
+    <!-- Physics settings for smooth simulation -->
+    <physics type="ode">
+      <max_step_size>0.01</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>100</real_time_update_rate>
+    </physics>
+    
+    <!-- Ground and environment -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    
+    <!-- Nest (brown, left side) -->
+    <model name="nest">
+      <pose>-15 0 0.01 0 0 0</pose>
+      <static>true</static>
+      <link name="nest_link">
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>3</radius>
+              <length>0.02</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.6 0.4 0.2 1</ambient>
+            <diffuse>0.6 0.4 0.2 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>3</radius>
+              <length>0.02</length>
+            </cylinder>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+    
+    <!-- Food Source (green, right side) -->
+    <model name="food_source">
+      <pose>15 0 0.05 0 0 0</pose>
+      <static>true</static>
+      <link name="food_link">
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>2</radius>
+              <length>0.1</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0 0.8 0 1</ambient>
+            <diffuse>0 1 0 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+            <emissive>0 0.3 0 1</emissive>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>2</radius>
+              <length>0.1</length>
+            </cylinder>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+    
+    <!-- Pheromone trail markers (purple spheres along path) -->
+
+    <model name="trail_marker_0">
+      <pose>-12.0 0 0.02 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.2</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.5 0 0.5 0.6</ambient>
+            <diffuse>0.7 0 0.7 0.6</diffuse>
+            <emissive>0.3 0 0.3 1</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="trail_marker_1">
+      <pose>-10.2 0 0.02 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.2</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.5 0 0.5 0.6</ambient>
+            <diffuse>0.7 0 0.7 0.6</diffuse>
+            <emissive>0.3 0 0.3 1</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="trail_marker_2">
+      <pose>-8.4 0 0.02 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.2</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.5 0 0.5 0.6</ambient>
+            <diffuse>0.7 0 0.7 0.6</diffuse>
+            <emissive>0.3 0 0.3 1</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="trail_marker_3">
+      <pose>-6.6 0 0.02 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.2</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.5 0 0.5 0.6</ambient>
+            <diffuse>0.7 0 0.7 0.6</diffuse>
+            <emissive>0.3 0 0.3 1</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="trail_marker_4">
+      <pose>-4.8 0 0.02 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.2</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.5 0 0.5 0.6</ambient>
+            <diffuse>0.7 0 0.7 0.6</diffuse>
+            <emissive>0.3 0 0.3 1</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="trail_marker_5">
+      <pose>-3.0 0 0.02 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.2</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.5 0 0.5 0.6</ambient>
+            <diffuse>0.7 0 0.7 0.6</diffuse>
+            <emissive>0.3 0 0.3 1</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="trail_marker_6">
+      <pose>-1.1999999999999993 0 0.02 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.2</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.5 0 0.5 0.6</ambient>
+            <diffuse>0.7 0 0.7 0.6</diffuse>
+            <emissive>0.3 0 0.3 1</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="trail_marker_7">
+      <pose>0.5999999999999996 0 0.02 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.2</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.5 0 0.5 0.6</ambient>
+            <diffuse>0.7 0 0.7 0.6</diffuse>
+            <emissive>0.3 0 0.3 1</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="trail_marker_8">
+      <pose>2.4000000000000004 0 0.02 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.2</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.5 0 0.5 0.6</ambient>
+            <diffuse>0.7 0 0.7 0.6</diffuse>
+            <emissive>0.3 0 0.3 1</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="trail_marker_9">
+      <pose>4.199999999999999 0 0.02 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.2</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.5 0 0.5 0.6</ambient>
+            <diffuse>0.7 0 0.7 0.6</diffuse>
+            <emissive>0.3 0 0.3 1</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="trail_marker_10">
+      <pose>6.0 0 0.02 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.2</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.5 0 0.5 0.6</ambient>
+            <diffuse>0.7 0 0.7 0.6</diffuse>
+            <emissive>0.3 0 0.3 1</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="trail_marker_11">
+      <pose>7.800000000000001 0 0.02 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.2</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.5 0 0.5 0.6</ambient>
+            <diffuse>0.7 0 0.7 0.6</diffuse>
+            <emissive>0.3 0 0.3 1</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="trail_marker_12">
+      <pose>9.600000000000001 0 0.02 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.2</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.5 0 0.5 0.6</ambient>
+            <diffuse>0.7 0 0.7 0.6</diffuse>
+            <emissive>0.3 0 0.3 1</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="trail_marker_13">
+      <pose>11.400000000000002 0 0.02 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.2</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.5 0 0.5 0.6</ambient>
+            <diffuse>0.7 0 0.7 0.6</diffuse>
+            <emissive>0.3 0 0.3 1</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="trail_marker_14">
+      <pose>13.2 0 0.02 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.2</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.5 0 0.5 0.6</ambient>
+            <diffuse>0.7 0 0.7 0.6</diffuse>
+            <emissive>0.3 0 0.3 1</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Ant 1 -->
+    <model name="ant_0">
+      <pose>-14.479570967401582 -0.5249134062583152 0.05 0 0 0</pose>
+      <link name="link">
+        <!-- Ant body -->
+        <visual name="body">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        
+        <!-- Ant head (smaller sphere) -->
+        <visual name="head">
+          <pose>0.1 0 0 0 0 0</pose>
+          <geometry>
+            <sphere><radius>0.08</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.8 0 0 1</ambient>
+            <diffuse>0.8 0 0 1</diffuse>
+          </material>
+        </visual>
+        
+        <collision name="collision">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+        </collision>
+        
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- Ant 2 -->
+    <model name="ant_1">
+      <pose>-14.718934926984446 -0.754733070194809 0.05 0 0 0</pose>
+      <link name="link">
+        <!-- Ant body -->
+        <visual name="body">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        
+        <!-- Ant head (smaller sphere) -->
+        <visual name="head">
+          <pose>0.1 0 0 0 0 0</pose>
+          <geometry>
+            <sphere><radius>0.08</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.8 0 0 1</ambient>
+            <diffuse>0.8 0 0 1</diffuse>
+          </material>
+        </visual>
+        
+        <collision name="collision">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+        </collision>
+        
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- Ant 3 -->
+    <model name="ant_2">
+      <pose>-16.415896310423804 -0.7385275973447585 0.05 0 0 0</pose>
+      <link name="link">
+        <!-- Ant body -->
+        <visual name="body">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        
+        <!-- Ant head (smaller sphere) -->
+        <visual name="head">
+          <pose>0.1 0 0 0 0 0</pose>
+          <geometry>
+            <sphere><radius>0.08</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.8 0 0 1</ambient>
+            <diffuse>0.8 0 0 1</diffuse>
+          </material>
+        </visual>
+        
+        <collision name="collision">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+        </collision>
+        
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- Ant 4 -->
+    <model name="ant_3">
+      <pose>-15.796092139559686 1.936853438596677 0.05 0 0 0</pose>
+      <link name="link">
+        <!-- Ant body -->
+        <visual name="body">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        
+        <!-- Ant head (smaller sphere) -->
+        <visual name="head">
+          <pose>0.1 0 0 0 0 0</pose>
+          <geometry>
+            <sphere><radius>0.08</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.8 0 0 1</ambient>
+            <diffuse>0.8 0 0 1</diffuse>
+          </material>
+        </visual>
+        
+        <collision name="collision">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+        </collision>
+        
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- Ant 5 -->
+    <model name="ant_4">
+      <pose>-13.415138092561971 -1.0679154296281577 0.05 0 0 0</pose>
+      <link name="link">
+        <!-- Ant body -->
+        <visual name="body">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        
+        <!-- Ant head (smaller sphere) -->
+        <visual name="head">
+          <pose>0.1 0 0 0 0 0</pose>
+          <geometry>
+            <sphere><radius>0.08</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.8 0 0 1</ambient>
+            <diffuse>0.8 0 0 1</diffuse>
+          </material>
+        </visual>
+        
+        <collision name="collision">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+        </collision>
+        
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- Ant 6 -->
+    <model name="ant_5">
+      <pose>-16.991552101118057 1.6955422933163953 0.05 0 0 0</pose>
+      <link name="link">
+        <!-- Ant body -->
+        <visual name="body">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        
+        <!-- Ant head (smaller sphere) -->
+        <visual name="head">
+          <pose>0.1 0 0 0 0 0</pose>
+          <geometry>
+            <sphere><radius>0.08</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.8 0 0 1</ambient>
+            <diffuse>0.8 0 0 1</diffuse>
+          </material>
+        </visual>
+        
+        <collision name="collision">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+        </collision>
+        
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- Ant 7 -->
+    <model name="ant_6">
+      <pose>-16.55487454011577 1.0495572863737332 0.05 0 0 0</pose>
+      <link name="link">
+        <!-- Ant body -->
+        <visual name="body">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        
+        <!-- Ant head (smaller sphere) -->
+        <visual name="head">
+          <pose>0.1 0 0 0 0 0</pose>
+          <geometry>
+            <sphere><radius>0.08</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.8 0 0 1</ambient>
+            <diffuse>0.8 0 0 1</diffuse>
+          </material>
+        </visual>
+        
+        <collision name="collision">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+        </collision>
+        
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- Ant 8 -->
+    <model name="ant_7">
+      <pose>-15.991139865971165 -1.1994321791101572 0.05 0 0 0</pose>
+      <link name="link">
+        <!-- Ant body -->
+        <visual name="body">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        
+        <!-- Ant head (smaller sphere) -->
+        <visual name="head">
+          <pose>0.1 0 0 0 0 0</pose>
+          <geometry>
+            <sphere><radius>0.08</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.8 0 0 1</ambient>
+            <diffuse>0.8 0 0 1</diffuse>
+          </material>
+        </visual>
+        
+        <collision name="collision">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+        </collision>
+        
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- Ant 9 -->
+    <model name="ant_8">
+      <pose>-16.25548426140917 -1.5488788411274341 0.05 0 0 0</pose>
+      <link name="link">
+        <!-- Ant body -->
+        <visual name="body">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        
+        <!-- Ant head (smaller sphere) -->
+        <visual name="head">
+          <pose>0.1 0 0 0 0 0</pose>
+          <geometry>
+            <sphere><radius>0.08</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.8 0 0 1</ambient>
+            <diffuse>0.8 0 0 1</diffuse>
+          </material>
+        </visual>
+        
+        <collision name="collision">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+        </collision>
+        
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- Ant 10 -->
+    <model name="ant_9">
+      <pose>-15.556913840638043 -0.38523128238087656 0.05 0 0 0</pose>
+      <link name="link">
+        <!-- Ant body -->
+        <visual name="body">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        
+        <!-- Ant head (smaller sphere) -->
+        <visual name="head">
+          <pose>0.1 0 0 0 0 0</pose>
+          <geometry>
+            <sphere><radius>0.08</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.8 0 0 1</ambient>
+            <diffuse>0.8 0 0 1</diffuse>
+          </material>
+        </visual>
+        
+        <collision name="collision">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+        </collision>
+        
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- Ant 11 -->
+    <model name="ant_10">
+      <pose>-16.99039947614226 0.30544038145658226 0.05 0 0 0</pose>
+      <link name="link">
+        <!-- Ant body -->
+        <visual name="body">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        
+        <!-- Ant head (smaller sphere) -->
+        <visual name="head">
+          <pose>0.1 0 0 0 0 0</pose>
+          <geometry>
+            <sphere><radius>0.08</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.8 0 0 1</ambient>
+            <diffuse>0.8 0 0 1</diffuse>
+          </material>
+        </visual>
+        
+        <collision name="collision">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+        </collision>
+        
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- Ant 12 -->
+    <model name="ant_11">
+      <pose>-16.709312009433 -0.30703366296936263 0.05 0 0 0</pose>
+      <link name="link">
+        <!-- Ant body -->
+        <visual name="body">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        
+        <!-- Ant head (smaller sphere) -->
+        <visual name="head">
+          <pose>0.1 0 0 0 0 0</pose>
+          <geometry>
+            <sphere><radius>0.08</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.8 0 0 1</ambient>
+            <diffuse>0.8 0 0 1</diffuse>
+          </material>
+        </visual>
+        
+        <collision name="collision">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+        </collision>
+        
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- Ant 13 -->
+    <model name="ant_12">
+      <pose>-16.865976413137194 1.4187871382116564 0.05 0 0 0</pose>
+      <link name="link">
+        <!-- Ant body -->
+        <visual name="body">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        
+        <!-- Ant head (smaller sphere) -->
+        <visual name="head">
+          <pose>0.1 0 0 0 0 0</pose>
+          <geometry>
+            <sphere><radius>0.08</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.8 0 0 1</ambient>
+            <diffuse>0.8 0 0 1</diffuse>
+          </material>
+        </visual>
+        
+        <collision name="collision">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+        </collision>
+        
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- Ant 14 -->
+    <model name="ant_13">
+      <pose>-13.762774212487646 0.7231945429156981 0.05 0 0 0</pose>
+      <link name="link">
+        <!-- Ant body -->
+        <visual name="body">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        
+        <!-- Ant head (smaller sphere) -->
+        <visual name="head">
+          <pose>0.1 0 0 0 0 0</pose>
+          <geometry>
+            <sphere><radius>0.08</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.8 0 0 1</ambient>
+            <diffuse>0.8 0 0 1</diffuse>
+          </material>
+        </visual>
+        
+        <collision name="collision">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+        </collision>
+        
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- Ant 15 -->
+    <model name="ant_14">
+      <pose>-13.560606300562668 0.9707263564284729 0.05 0 0 0</pose>
+      <link name="link">
+        <!-- Ant body -->
+        <visual name="body">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        
+        <!-- Ant head (smaller sphere) -->
+        <visual name="head">
+          <pose>0.1 0 0 0 0 0</pose>
+          <geometry>
+            <sphere><radius>0.08</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.8 0 0 1</ambient>
+            <diffuse>0.8 0 0 1</diffuse>
+          </material>
+        </visual>
+        
+        <collision name="collision">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+        </collision>
+        
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- Ant 16 -->
+    <model name="ant_15">
+      <pose>-15.374704048651783 0.40547341650233726 0.05 0 0 0</pose>
+      <link name="link">
+        <!-- Ant body -->
+        <visual name="body">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        
+        <!-- Ant head (smaller sphere) -->
+        <visual name="head">
+          <pose>0.1 0 0 0 0 0</pose>
+          <geometry>
+            <sphere><radius>0.08</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.8 0 0 1</ambient>
+            <diffuse>0.8 0 0 1</diffuse>
+          </material>
+        </visual>
+        
+        <collision name="collision">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+        </collision>
+        
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- Ant 17 -->
+    <model name="ant_16">
+      <pose>-16.567042078717517 0.06533760161203483 0.05 0 0 0</pose>
+      <link name="link">
+        <!-- Ant body -->
+        <visual name="body">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        
+        <!-- Ant head (smaller sphere) -->
+        <visual name="head">
+          <pose>0.1 0 0 0 0 0</pose>
+          <geometry>
+            <sphere><radius>0.08</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.8 0 0 1</ambient>
+            <diffuse>0.8 0 0 1</diffuse>
+          </material>
+        </visual>
+        
+        <collision name="collision">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+        </collision>
+        
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- Ant 18 -->
+    <model name="ant_17">
+      <pose>-14.774789506206355 -0.842479106653168 0.05 0 0 0</pose>
+      <link name="link">
+        <!-- Ant body -->
+        <visual name="body">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        
+        <!-- Ant head (smaller sphere) -->
+        <visual name="head">
+          <pose>0.1 0 0 0 0 0</pose>
+          <geometry>
+            <sphere><radius>0.08</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.8 0 0 1</ambient>
+            <diffuse>0.8 0 0 1</diffuse>
+          </material>
+        </visual>
+        
+        <collision name="collision">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+        </collision>
+        
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- Ant 19 -->
+    <model name="ant_18">
+      <pose>-14.455560751624896 -0.5579791319023388 0.05 0 0 0</pose>
+      <link name="link">
+        <!-- Ant body -->
+        <visual name="body">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        
+        <!-- Ant head (smaller sphere) -->
+        <visual name="head">
+          <pose>0.1 0 0 0 0 0</pose>
+          <geometry>
+            <sphere><radius>0.08</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.8 0 0 1</ambient>
+            <diffuse>0.8 0 0 1</diffuse>
+          </material>
+        </visual>
+        
+        <collision name="collision">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+        </collision>
+        
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- Ant 20 -->
+    <model name="ant_19">
+      <pose>-14.866819121077102 1.865527731805352 0.05 0 0 0</pose>
+      <link name="link">
+        <!-- Ant body -->
+        <visual name="body">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+        
+        <!-- Ant head (smaller sphere) -->
+        <visual name="head">
+          <pose>0.1 0 0 0 0 0</pose>
+          <geometry>
+            <sphere><radius>0.08</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.8 0 0 1</ambient>
+            <diffuse>0.8 0 0 1</diffuse>
+          </material>
+        </visual>
+        
+        <collision name="collision">
+          <geometry>
+            <sphere><radius>0.15</radius></sphere>
+          </geometry>
+        </collision>
+        
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    
+    <!-- Camera for better viewing -->
+    <gui>
+      <camera name="user_camera">
+        <pose>0 -25 15 0 0.5 1.57</pose>
+      </camera>
+    </gui>
+    
+  </world>
+</sdf>

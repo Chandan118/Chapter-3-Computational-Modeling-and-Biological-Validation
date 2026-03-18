@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="ant_colony_world">
+    
+    <!-- Ground and lighting -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    
+    <!-- Nest (brown circle) -->
+    <model name="nest">
+      <pose>-15 0 0.01 0 0 0</pose>
+      <static>true</static>
+      <link name="nest_link">
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>3</radius>
+              <length>0.02</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.6 0.4 0.2 1</ambient>
+            <diffuse>0.6 0.4 0.2 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>3</radius>
+              <length>0.02</length>
+            </cylinder>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+    
+    <!-- Food Source (green circle) -->
+    <model name="food_source">
+      <pose>15 0 0.05 0 0 0</pose>
+      <static>true</static>
+      <link name="food_link">
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>2</radius>
+              <length>0.1</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0 0.8 0 1</ambient>
+            <diffuse>0 1 0 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>2</radius>
+              <length>0.1</length>
+            </cylinder>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+    
+    <!-- Pheromone trail visualization markers -->
+    <model name="trail_marker_1">
+      <pose>-10 0 0.01 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.3</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.5 0 0.5 0.5</ambient>
+            <diffuse>0.7 0 0.7 0.5</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="trail_marker_2">
+      <pose>-5 0 0.01 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.3</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.5 0 0.5 0.5</ambient>
+            <diffuse>0.7 0 0.7 0.5</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="trail_marker_3">
+      <pose>0 0 0.01 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.3</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.5 0 0.5 0.5</ambient>
+            <diffuse>0.7 0 0.7 0.5</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="trail_marker_4">
+      <pose>5 0 0.01 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.3</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.5 0 0.5 0.5</ambient>
+            <diffuse>0.7 0 0.7 0.5</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="trail_marker_5">
+      <pose>10 0 0.01 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.3</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>0.5 0 0.5 0.5</ambient>
+            <diffuse>0.7 0 0.7 0.5</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    
+    <!-- Ant representations (small spheres) -->
+    <model name="ant_1">
+      <pose>-14 1 0.05 0 0 0</pose>
+      <static>false</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.2</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ant_2">
+      <pose>-14 -1 0.05 0 0 0</pose>
+      <static>false</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.2</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    
+    <model name="ant_3">
+      <pose>-13 0 0.05 0 0 0</pose>
+      <static>false</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere><radius>0.2</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    
+  </world>
+</sdf>

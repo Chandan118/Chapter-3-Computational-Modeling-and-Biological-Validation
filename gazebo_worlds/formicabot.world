@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="formicabot_world">
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    
+    <!-- Nest -->
+    <model name="nest">
+      <pose>0 0 0.01 0 0 0</pose>
+      <static>true</static>
+      <link name="nest_link">
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>2</radius>
+              <length>0.02</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.8 0.6 0.4 1</ambient>
+          </material>
+        </visual>
+      </link>
+    </model>
+    
+    <!-- Food Source -->
+    <model name="food_source">
+      <pose>10 0 0.05 0 0 0</pose>
+      <static>true</static>
+      <link name="food_link">
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>1</radius>
+              <length>0.1</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0 1 0 1</ambient>
+          </material>
+        </visual>
+      </link>
+    </model>
+    
+  </world>
+</sdf>
