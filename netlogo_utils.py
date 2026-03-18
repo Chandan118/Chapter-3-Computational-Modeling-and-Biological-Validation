@@ -64,22 +64,25 @@ def init_netlogo(
 
     Raises RuntimeError with a helpful message on failure.
     """
+    pynetlogo = None
     try:
         import pynetlogo
-    except Exception as e:
-        raise RuntimeError(f"PyNetLogo import failed: {e}")
+    except ImportError:
+        pass
 
     if netlogo_home is None:
         netlogo_home = find_netlogo_home()
 
     jar = find_netlogo_jar(netlogo_home)
 
-    # If NetLogo or Java missing, provide a helpful error. For convenience
-    # allow calling code to request a lightweight mock so scripts can run
-    # in environments without NetLogo installed.
+    # If NetLogo, Java, or PyNetLogo missing, provide a helpful error. 
+    # For convenience allow calling code to request a lightweight mock 
+    # so scripts can run in environments without NetLogo installed.
     allow_mock = True
-    if not netlogo_home or not java_available() or not jar:
+    if not pynetlogo or not netlogo_home or not java_available() or not jar:
         missing = []
+        if not pynetlogo:
+            missing.append("pynetlogo")
         if not netlogo_home:
             missing.append("NETLOGO_HOME")
         if not java_available():
@@ -105,6 +108,7 @@ def init_netlogo(
         kwargs = {"gui": gui, "netlogo_home": netlogo_home}
         if netlogo_version:
             kwargs["netlogo_version"] = netlogo_version
+        assert pynetlogo is not None
         nl = pynetlogo.NetLogoLink(**kwargs)
         return nl
     except Exception as e:
