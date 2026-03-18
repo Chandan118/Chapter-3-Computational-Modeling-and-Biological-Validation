@@ -6,7 +6,6 @@ Complete working version with all error handling
 
 import json
 import os
-import sys
 import time
 from pathlib import Path
 
@@ -77,7 +76,7 @@ class FormicaBotExperiment:
         try:
             self.netlogo.command(f"set diffusion-rate {diffusion}")
             self.netlogo.command(f"set evaporation-rate {evaporation}")
-        except:
+        except Exception:
             pass  # Some models may not have these parameters
 
         # Data collection
@@ -91,15 +90,15 @@ class FormicaBotExperiment:
             try:
                 # Try to get ants carrying food
                 ants_food = self.netlogo.report("count turtles with [color = orange + 1]")
-            except:
+            except Exception:
                 try:
                     ants_food = self.netlogo.report("count turtles with [carrying-food?]")
-                except:
+                except Exception:
                     ants_food = 0
 
             try:
                 chemical = self.netlogo.report("mean [chemical] of patches")
-            except:
+            except Exception:
                 chemical = 0
 
             data["ticks"].append(tick)
@@ -168,7 +167,7 @@ class FormicaBotExperiment:
             if self.netlogo:
                 try:
                     self.netlogo.kill_workspace()
-                except:
+                except Exception:
                     pass
 
     def create_summary(self, results):
@@ -190,7 +189,7 @@ class FormicaBotExperiment:
 
         df = pd.DataFrame(summary)
         df.to_csv(self.output_dir / "summary.csv", index=False)
-        print(f"✓ Saved: summary.csv")
+        print("✓ Saved: summary.csv")
 
         print("\nResults:")
         print(df.to_string())
@@ -251,7 +250,7 @@ class FormicaBotExperiment:
 
             plt.tight_layout()
             plt.savefig(self.output_dir / "experiment_results.png", dpi=150)
-            print(f"✓ Saved: experiment_results.png")
+            print("✓ Saved: experiment_results.png")
             plt.close()
 
         except Exception as e:

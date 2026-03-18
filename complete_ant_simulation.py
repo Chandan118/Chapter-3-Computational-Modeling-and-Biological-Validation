@@ -92,7 +92,7 @@ class CompleteAntSimulation:
             else:
                 print("✗ Java not working")
                 checks.append(False)
-        except:
+        except Exception:
             print("✗ Java not found")
             checks.append(False)
 
@@ -103,7 +103,7 @@ class CompleteAntSimulation:
 
             print("✓ Visualization libraries (matplotlib, seaborn)")
             checks.append(True)
-        except:
+        except Exception:
             print("✗ Missing visualization libraries")
             print("  Install with: pip install matplotlib seaborn")
             checks.append(False)
@@ -116,7 +116,7 @@ class CompleteAntSimulation:
             else:
                 print("⚠ Gazebo not installed (optional)")
                 print("  Install with: sudo apt install gazebo11")
-        except:
+        except Exception:
             print("⚠ Gazebo check failed (optional)")
 
         print("=" * 80)
@@ -188,7 +188,7 @@ class CompleteAntSimulation:
             try:
                 self.netlogo.command(f"set initial-ant-count {100}")
                 self.netlogo.command(f"set pheromone-strength {pheromone_strength}")
-            except:
+            except Exception:
                 pass  # Some parameters may not exist in all models
 
             print(f"  Parameters: pheromone={pheromone_strength}")
@@ -354,7 +354,7 @@ class CompleteAntSimulation:
                 try:
                     self.netlogo.kill_workspace()
                     print("\nNetLogo connection closed")
-                except:
+                except Exception:
                     pass
 
     def _generate_comprehensive_analysis(self, results: List[Dict]):
@@ -768,7 +768,7 @@ class CompleteAntSimulation:
                 return
 
             print(f"✓ Gazebo found: {result.stdout.strip()}")
-        except:
+        except Exception:
             print("✗ Gazebo check failed")
             return
 

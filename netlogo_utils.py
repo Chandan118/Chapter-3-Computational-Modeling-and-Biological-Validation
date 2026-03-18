@@ -59,7 +59,7 @@ def find_netlogo_jar(netlogo_home: Optional[str]) -> Optional[str]:
 
 def init_netlogo(
     gui: bool = False, netlogo_home: Optional[str] = None, netlogo_version: Optional[str] = None
-) -> Union["pynetlogo.NetLogoLink", "MockNetLogoLink"]:
+) -> Union[Any, "MockNetLogoLink"]:
     """Initialize and return a `pynetlogo.NetLogoLink` instance.
 
     Raises RuntimeError with a helpful message on failure.
@@ -75,8 +75,8 @@ def init_netlogo(
 
     jar = find_netlogo_jar(netlogo_home)
 
-    # If NetLogo, Java, or PyNetLogo missing, provide a helpful error. 
-    # For convenience allow calling code to request a lightweight mock 
+    # If NetLogo, Java, or PyNetLogo missing, provide a helpful error.
+    # For convenience allow calling code to request a lightweight mock
     # so scripts can run in environments without NetLogo installed.
     allow_mock = True
     if not pynetlogo or not netlogo_home or not java_available() or not jar:

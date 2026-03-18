@@ -1,6 +1,5 @@
 """Pytest configuration and shared fixtures for FormicaBot tests."""
 
-import os
 import sys
 from pathlib import Path
 

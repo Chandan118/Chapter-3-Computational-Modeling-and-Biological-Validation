@@ -4,12 +4,8 @@ Gazebo Playback Script - Plays recorded simulation
 """
 
 import json
-import time
 
 import rospy
-from gazebo_msgs.msg import ModelState
-from gazebo_msgs.srv import SetModelState
-from geometry_msgs.msg import Point, Pose, Quaternion
 
 
 def load_simulation_data():

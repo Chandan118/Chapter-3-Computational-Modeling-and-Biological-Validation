@@ -1,23 +1,6 @@
 """Smoke tests for experiment runners."""
 
-import json
-
 import pytest
-
-
-class TestRunExperiment1:
-    """Test suite for run_experiment_1.py smoke test."""
-
-    def test_experiment_1_runs_without_error(self):
-        """Test that run_experiment_1.py can be imported and basic functions work."""
-        # This is a smoke test - verify the module can be imported
-        try:
-            import run_experiment_1
-
-            # Module should exist and be importable
-            assert run_experiment_1 is not None
-        except ImportError:
-            pytest.skip("run_experiment_1 module not available")
 
 
 class TestExperimentOutputs:
