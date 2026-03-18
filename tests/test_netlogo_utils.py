@@ -1,10 +1,10 @@
 """Tests for netlogo_utils module."""
 from netlogo_utils import (
+    MockNetLogoLink,
     find_netlogo_home,
-    java_available,
     find_netlogo_jar,
     init_netlogo,
-    MockNetLogoLink,
+    java_available,
 )
 
 

@@ -1,8 +1,9 @@
 """Pytest configuration and shared fixtures for FormicaBot tests."""
-import pytest
-import sys
 import os
+import sys
 from pathlib import Path
+
+import pytest
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -12,6 +13,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 def mock_netlogo():
     """Fixture providing a MockNetLogoLink instance for testing."""
     from netlogo_utils import MockNetLogoLink
+
     return MockNetLogoLink()
 
 
