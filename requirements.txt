@@ -1,0 +1,12 @@
+pandas
+numpy
+seaborn
+matplotlib
+pyNetLogo
+JPype1
+pytest
+flake8
+black
+isort
+mypy
+pytest-cov
