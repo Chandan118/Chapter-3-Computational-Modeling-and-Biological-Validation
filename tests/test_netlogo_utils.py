@@ -1,4 +1,5 @@
 """Tests for netlogo_utils module."""
+
 from netlogo_utils import (
     MockNetLogoLink,
     find_netlogo_home,
