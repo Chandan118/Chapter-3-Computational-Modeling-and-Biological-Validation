@@ -1,5 +1,15 @@
-"""Smoke tests for experiment runners."""
+"""
+test_experiments.py
 
+Author      : Chandan Sheikder
+Email       : chandan@bit.edu.cn
+Phone       : +8618222390506
+Affiliation : Beijing Institute of Technology (BIT)
+Date        : 2026-03-23
+
+Description:
+    Smoke tests for experiment runners.
+"""
 
 class TestExperimentOutputs:
     """Test suite for experiment output handling."""

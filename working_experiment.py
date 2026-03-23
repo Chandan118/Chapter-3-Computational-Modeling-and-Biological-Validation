@@ -1,7 +1,15 @@
 #!/usr/bin/env python3
 """
-Working Experiment 1 - Baseline Foraging Dynamics
-Fixed version that handles all common issues
+working_experiment.py
+
+Author      : Chandan Sheikder
+Email       : chandan@bit.edu.cn
+Phone       : +8618222390506
+Affiliation : Beijing Institute of Technology (BIT)
+Date        : 2026-03-23
+
+Description:
+    Working Experiment 1 - Baseline Foraging Dynamics
 """
 
 import json
