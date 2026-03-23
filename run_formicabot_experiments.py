@@ -1,7 +1,15 @@
 #!/usr/bin/env python3
 """
-FormicaBot Baseline Foraging Experiments
-Complete working version with all error handling
+run_formicabot_experiments.py
+
+Author      : Chandan Sheikder
+Email       : chandan@bit.edu.cn
+Phone       : +8618222390506
+Affiliation : Beijing Institute of Technology (BIT)
+Date        : 2026-03-23
+
+Description:
+    FormicaBot Baseline Foraging Experiments
 """
 
 import json

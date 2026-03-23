@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
 """
-COMPLETE ANT COLONY SIMULATION
-Full-featured simulation with NetLogo + Gazebo visualization
-Production-ready with robust error handling
+complete_ant_simulation.py
+
+Author      : Chandan Sheikder
+Email       : chandan@bit.edu.cn
+Phone       : +8618222390506
+Affiliation : Beijing Institute of Technology (BIT)
+Date        : 2026-03-23
+
+Description:
+    COMPLETE ANT COLONY SIMULATION
 """
 
 import json

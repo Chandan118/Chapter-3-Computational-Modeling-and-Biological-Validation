@@ -1,7 +1,15 @@
 #!/usr/bin/env python3
-"""Utility helpers for initializing NetLogo with clearer pre-flight checks.
+"""
+netlogo_utils.py
 
-This module is intentionally lightweight and avoids side-effects.
+Author      : Chandan Sheikder
+Email       : chandan@bit.edu.cn
+Phone       : +8618222390506
+Affiliation : Beijing Institute of Technology (BIT)
+Date        : 2026-03-23
+
+Description:
+    Utility helpers for initializing NetLogo with clearer pre-flight checks.
 """
 
 import glob
