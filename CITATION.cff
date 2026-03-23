@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+type: software
+title: "Computational Modeling and Biological Validation of Bio-Inspired Ant Foraging for Swarm Robotics"
+version: "1.0.0"
+date-released: "2025-03-23"
+doi: "10.5281/zenodo.19097072"
+abstract: >-
+  Source code, experimental data, and simulation models for Chapter 3 of the thesis on bio-inspired ant foraging. Integrates NetLogo agent-based modeling with Gazebo physics simulation.
+license: MIT
+authors:
+  - family-names: Sheikder
+    given-names: Chandan
+    email: chandan@bit.edu.cn
+    affiliation: "Beijing Institute of Technology (BIT)"
+    orcid: "https://orcid.org/0000-0003-1459-8747"
+repository-code: "https://github.com/Chandan118/Chapter-3-Computational-Modeling-and-Biological-Validation"
+keywords:
+  - "ant foraging"
+  - "swarm robotics"
+  - "NetLogo"
+  - "Gazebo"
+  - "agent-based modeling"
+  - "biological validation"
+contact:
+  - name: Chandan Sheikder
+    email: chandan@bit.edu.cn
+    website: "https://chandan118.github.io"
