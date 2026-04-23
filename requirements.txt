@@ -3,7 +3,7 @@ numpy
 seaborn
 matplotlib
 pyNetLogo
-JPype1==1.3.0
+JPype1==1.5.0
 pytest
 flake8
 black
